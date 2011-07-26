@@ -118,7 +118,7 @@ require "rubygems/deprecate"
 # -The RubyGems Team
 
 module Gem
-  VERSION = '1.8.6.whoa'
+  VERSION = '1.8.6.1'
 
   ##
   # Raised when RubyGems is unable to load or activate a gem.  Contains the
