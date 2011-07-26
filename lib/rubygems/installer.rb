@@ -299,8 +299,7 @@ class Gem::Installer
 
       begin
         mode = File.stat(bin_path).mode | 0111
-        $stderr.puts "#{bin_path}: currently #{File.stat(bin_path).mode}, wants to become #{mode}"
-        FileUtils.chmod mode, bin_path
+        FileUtils.chmod mode, bin_path if mode != File.stat(bin_path).mode
       rescue Errno::EPERM
         @stderr.puts "Can't change perms on #{bin_path}, check your permissions."
       end
