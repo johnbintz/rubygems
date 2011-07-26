@@ -297,8 +297,13 @@ class Gem::Installer
         next
       end
 
-      mode = File.stat(bin_path).mode | 0111
-      FileUtils.chmod mode, bin_path
+      begin
+        mode = File.stat(bin_path).mode | 0111
+        $stderr.puts "#{bin_path}: currently #{File.stat(bin_path).mode}, wants to become #{mode}"
+        FileUtils.chmod mode, bin_path
+      rescue Errno::EPERM
+        @stderr.puts "Can't change perms on #{bin_path}, check your permissions."
+      end
 
       if @wrappers then
         generate_bin_script filename, bindir
